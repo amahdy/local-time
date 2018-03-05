@@ -1,0 +1,41 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+
+<dom-module id="local-time">
+  <template>
+    <style>
+      :host {
+        display: inline;
+      }
+    </style>
+    <span id="placeholder">{{localtime}}</span>
+  </template>
+
+  <script>
+    /**
+     * `local-time`
+     * Displays give server time in browser&#39;s localtime.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class LocalTime extends Polymer.Element {
+      static get is() { return 'local-time'; }
+      static get properties() {
+        return {
+          localtime: {
+            type: Date,
+            value: new Date(0)
+          },
+          servertime: Number
+        };
+      }
+      ready() {
+        super.ready();
+        this.localtime = new Date(new Date(0).setUTCMilliseconds(this.servertime)).toLocaleString();
+      }
+    }
+
+    window.customElements.define(LocalTime.is, LocalTime);
+  </script>
+</dom-module>
